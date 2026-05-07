@@ -39,10 +39,10 @@ namespace StudentDataAccessLayer
                     {
                         StudentsList.Add(new StudentDTO
                         (
-                            (int)reader["ID"],
-                            (string)reader["Name"],
-                            (int)reader["Age"],
-                            (int)reader["Grade"]
+                            reader.GetInt32(reader.GetOrdinal("ID")),
+                            reader.GetString(reader.GetOrdinal("Name")),
+                            reader.GetInt32(reader.GetOrdinal("Age")),
+                            reader.GetInt32(reader.GetOrdinal("Grade"))
                         )
                         );
                     }
@@ -51,5 +51,54 @@ namespace StudentDataAccessLayer
             return StudentsList;
         }
 
+        public static async Task<List<StudentDTO>> GetPassedStudents()
+        {
+            var PassedStudentsList = new List<StudentDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_ConnectionString))
+            using (SqlCommand command = new SqlCommand("SP_GetPassedStudents", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                await connection.OpenAsync();
+
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        PassedStudentsList.Add(new StudentDTO
+                        (
+                            reader.GetInt32(reader.GetOrdinal("ID")),
+                            reader.GetString(reader.GetOrdinal("Name")),
+                            reader.GetInt32(reader.GetOrdinal("Age")),
+                            reader.GetInt32(reader.GetOrdinal("Grade"))
+                        )
+                        );
+                    }
+                }
+            }
+            return PassedStudentsList;
+        }
+
+        public static async Task<float> GetAverageGrade()
+        {
+            float AverageGrade = 0;
+            using (SqlConnection connection = new SqlConnection(_ConnectionString))
+            using (SqlCommand command = new SqlCommand("SP_GetAverageGrade", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                await connection.OpenAsync();
+
+
+                object result = await command.ExecuteScalarAsync();
+                if (result != DBNull.Value)
+                    AverageGrade = Convert.ToSingle(result);
+
+            }
+            return AverageGrade;
+        }
     }
 }
