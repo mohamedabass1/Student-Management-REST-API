@@ -33,5 +33,11 @@ namespace StudentAPIBusinessLayer
             return await clsStudentData.GetAverageGrade();
         }
 
+        public static async Task<StudentDTO> GetStudentByID(int ID)
+        {
+            return await clsStudentData.GetStudentByID(ID);
+        }
+
+
     }
 }

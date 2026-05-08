@@ -49,5 +49,27 @@ namespace StudentApi.Controllers
 
             return Ok(averageGrade);
         }
+
+        [HttpGet("{ID}", Name = "GetByID")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<StudentDTO>> GetStudentByID(int ID)
+        {
+            if (ID < 1)
+            {
+                return BadRequest("Invalid Student ID");
+            }
+
+            var student = await clsStudent.GetStudentByID(ID);
+
+            if (student == null)
+            {
+                return NotFound($"Student with id {ID} Not Found!");
+            }
+
+            return Ok(student);
+
+        }
     }
 }
