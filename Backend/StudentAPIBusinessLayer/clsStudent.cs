@@ -84,5 +84,12 @@ namespace StudentAPIBusinessLayer
 
             return null;
         }
+
+        public static async Task<bool> DeleteStudent(int ID)
+        {
+            return await clsStudentData.DeleteStudent(ID);
+        }
+
+
     }
 }

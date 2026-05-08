@@ -188,5 +188,27 @@ namespace StudentDataAccessLayer
             return AffectedRows != 0;
         }
 
+
+        public static async Task<bool> DeleteStudent(int ID)
+        {
+            int AffectedRows = 0;
+
+            using (SqlConnection connection = new SqlConnection(_ConnectionString))
+            using (SqlCommand command = new SqlCommand("SP_DeleteStudent", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@ID", ID);
+
+
+
+                await connection.OpenAsync();
+
+                AffectedRows = await command.ExecuteNonQueryAsync();
+
+            }
+            return AffectedRows != 0;
+        }
+
     }
 }

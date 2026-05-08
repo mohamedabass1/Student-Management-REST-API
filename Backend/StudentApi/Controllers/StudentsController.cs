@@ -50,6 +50,8 @@ namespace StudentApi.Controllers
             return Ok(averageGrade);
         }
 
+
+
         [HttpGet("{ID}", Name = "GetByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -131,7 +133,28 @@ namespace StudentApi.Controllers
             return Ok(student.ToDTO());
         }
 
+        [HttpDelete("{ID}", Name = "DeleteStudent")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> DeleteStudent(int ID)
+        {
+            if (ID < 1)
+            {
+                return BadRequest($"Invalid Student ID {ID} !");
+            }
 
+            bool isDeleted = await clsStudent.DeleteStudent(ID);
+
+            if (isDeleted)
+            {
+                return Ok($"Student with id {ID} Deleted Successfully");
+            }
+            else
+                return NotFound($"Student with id {ID} Not Found");
+
+
+        }
 
     }
 }
