@@ -61,14 +61,18 @@ namespace StudentApi.Controllers
                 return BadRequest("Invalid Student ID");
             }
 
-            var student = await clsStudent.GetStudentByID(ID);
+            clsStudent student = await clsStudent.Find(ID);
 
             if (student == null)
             {
                 return NotFound($"Student with id {ID} Not Found!");
             }
 
-            return Ok(student);
+            //here we get only the DTO object to send it back.
+            StudentDTO sDTO = student.ToDTO();
+
+            // we return only the DTO not the student object
+            return Ok(sDTO);
 
         }
     }

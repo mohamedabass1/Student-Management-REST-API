@@ -35,7 +35,7 @@ namespace StudentDataAccessLayer
 
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         StudentsList.Add(new StudentDTO
                         (
@@ -65,7 +65,7 @@ namespace StudentDataAccessLayer
 
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         PassedStudentsList.Add(new StudentDTO
                         (
@@ -115,7 +115,7 @@ namespace StudentDataAccessLayer
 
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
                         return new StudentDTO
                                             (
