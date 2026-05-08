@@ -4,26 +4,17 @@ namespace StudentAPIBusinessLayer
 {
     public class clsStudent
     {
-        enum enMode { AddNew, Update }
-        enMode Mode = enMode.AddNew;
-        public clsStudent(int id, string name, int age, int grade)
-        {
-            ID = id;
-            Name = name;
-            Age = age;
-            Grade = grade;
+        public enum enMode { AddNew, Update }
+        public enMode Mode = enMode.AddNew;
 
-            Mode = enMode.AddNew;
-        }
-
-        private clsStudent(StudentDTO sDTO)
+        public clsStudent(StudentDTO sDTO, enMode sMode = enMode.AddNew)
         {
             this.ID = sDTO.ID;
             this.Name = sDTO.Name;
             this.Age = sDTO.Age;
             this.Grade = sDTO.Grade;
 
-            Mode = enMode.Update;
+            Mode = sMode;
         }
         public int ID { get; set; }
         public string Name { get; set; }
@@ -33,6 +24,33 @@ namespace StudentAPIBusinessLayer
         public StudentDTO ToDTO()
         {
             return new StudentDTO(this.ID, this.Name, this.Age, this.Grade);
+        }
+
+
+        private async Task<bool> _AddNewStudent()
+        {
+            this.ID = await clsStudentData.AddNewStudent(this.ToDTO());
+
+            return (this.ID != -1);
+        }
+
+
+        public async Task<bool> Save()
+        {
+            switch (Mode)
+            {
+                case enMode.AddNew:
+                    if (await _AddNewStudent())
+                    {
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return false;
         }
 
         public static async Task<List<StudentDTO>> GetAllStudents()
@@ -55,12 +73,9 @@ namespace StudentAPIBusinessLayer
             var sDTO = await clsStudentData.GetStudentByID(ID);
 
             if (sDTO != null)
-                return new clsStudent(sDTO);
+                return new clsStudent(sDTO, enMode.Update);
 
             return null;
-
         }
-
-
     }
 }

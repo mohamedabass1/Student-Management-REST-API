@@ -131,5 +131,48 @@ namespace StudentDataAccessLayer
             }
             return null;
         }
+
+
+        public static async Task<int> AddNewStudent(StudentDTO sDTO)
+        {
+            int NewID = -1;
+
+            using (SqlConnection connection = new SqlConnection(_ConnectionString))
+            using (SqlCommand command = new SqlCommand("SP_AddNewStudent", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Name", sDTO.Name);
+                command.Parameters.AddWithValue("@Age", sDTO.Age);
+                command.Parameters.AddWithValue("@Grade", sDTO.Grade);
+
+                SqlParameter InsertedStudentIDParam = new SqlParameter("@NewID", System.Data.SqlDbType.Int)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                }
+                ;
+
+                command.Parameters.Add(InsertedStudentIDParam);
+                try
+                {
+                    await connection.OpenAsync();
+
+                    await command.ExecuteScalarAsync();
+
+
+                    NewID = (int)InsertedStudentIDParam.Value;
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
+            return NewID;
+        }
+
+
     }
 }
