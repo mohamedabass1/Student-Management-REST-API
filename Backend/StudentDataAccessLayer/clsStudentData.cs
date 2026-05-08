@@ -93,7 +93,7 @@ namespace StudentDataAccessLayer
                 await connection.OpenAsync();
 
 
-                object result = await command.ExecuteScalarAsync();
+                object? result = await command.ExecuteScalarAsync();
                 if (result != DBNull.Value)
                     AverageGrade = Convert.ToSingle(result);
 
@@ -153,26 +153,40 @@ namespace StudentDataAccessLayer
                 ;
 
                 command.Parameters.Add(InsertedStudentIDParam);
-                try
-                {
-                    await connection.OpenAsync();
 
-                    await command.ExecuteScalarAsync();
+                await connection.OpenAsync();
+
+                await command.ExecuteNonQueryAsync();
+
+                NewID = (int)InsertedStudentIDParam.Value;
 
 
-                    NewID = (int)InsertedStudentIDParam.Value;
-
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-
+                return NewID;
             }
-            return NewID;
         }
 
+        public static async Task<bool> UpdateStudent(StudentDTO sDTO)
+        {
+            int AffectedRows = 0;
+
+            using (SqlConnection connection = new SqlConnection(_ConnectionString))
+            using (SqlCommand command = new SqlCommand("SP_UpdateStudent", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@ID", sDTO.ID);
+                command.Parameters.AddWithValue("@Name", sDTO.Name);
+                command.Parameters.AddWithValue("@Age", sDTO.Age);
+                command.Parameters.AddWithValue("@Grade", sDTO.Grade);
+
+
+                await connection.OpenAsync();
+
+                AffectedRows = await command.ExecuteNonQueryAsync();
+
+            }
+            return AffectedRows != 0;
+        }
 
     }
 }

@@ -33,7 +33,10 @@ namespace StudentAPIBusinessLayer
 
             return (this.ID != -1);
         }
-
+        private async Task<bool> _UpdateStudent()
+        {
+            return await clsStudentData.UpdateStudent(this.ToDTO());
+        }
 
         public async Task<bool> Save()
         {
@@ -46,8 +49,12 @@ namespace StudentAPIBusinessLayer
                         return true;
                     }
                     break;
-                default:
-                    break;
+
+                case enMode.Update:
+                    {
+                        return await _UpdateStudent();
+                    }
+
             }
 
             return false;
