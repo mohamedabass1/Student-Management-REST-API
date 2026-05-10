@@ -102,11 +102,7 @@ namespace StudentDesktopClient1
             _RestAddNewPage();
         }
 
-        private async void tpStudentList_Enter(object sender, EventArgs e)
-        {
-            await LoadStudentsList();
 
-        }
 
         private async void btnAddNew_Click(object sender, EventArgs e)
         {
@@ -118,24 +114,14 @@ namespace StudentDesktopClient1
 
             await _AddNewStudent(student);
 
+            await LoadStudentsList();
+
         }
-
-        private async void btnFind_Click(object sender, EventArgs e)
+        private async Task<Student?> FindStudent(int ID)
         {
-            if (string.IsNullOrEmpty(txtStudentID.Text))
-                return;
-
-            int studentID = int.Parse(txtStudentID.Text);
-
-            if (studentID < 1)
-            {
-                MessageBox.Show("Invalid Student ID");
-                return;
-            }
-
             try
             {
-                var response = await HttpClient.GetAsync($"{studentID}");
+                var response = await HttpClient.GetAsync($"{ID}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -143,9 +129,7 @@ namespace StudentDesktopClient1
 
                     if (studentInfo != null)
                     {
-                        lblName.Text = studentInfo.Name;
-                        lblAge.Text = studentInfo.Age.ToString();
-                        lblGrade.Text = studentInfo.Grade.ToString();
+                        return studentInfo;
                     }
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
@@ -167,8 +151,147 @@ namespace StudentDesktopClient1
 
                 MessageBox.Show(ex.Message);
             }
+            return null;
+
+        }
+
+        private async void btnFind_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtStudentID.Text))
+                return;
+
+            int studentID = int.Parse(txtStudentID.Text);
+
+            if (studentID < 1)
+            {
+                MessageBox.Show("Invalid Student ID");
+                return;
+            }
 
 
+            var studentInfo = await FindStudent(studentID);
+
+            if (studentInfo != null)
+            {
+                lblName.Text = studentInfo.Name;
+                lblAge.Text = studentInfo.Age.ToString();
+                lblGrade.Text = studentInfo.Grade.ToString();
+            }
+        }
+
+        private async void btnUpFind_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtUpStudentID.Text))
+                return;
+
+            int studentID = int.Parse(txtUpStudentID.Text);
+
+            if (studentID < 1)
+            {
+                MessageBox.Show("Invalid Student ID");
+                return;
+            }
+
+
+            Student? studentInfo = await FindStudent(studentID);
+
+            if (studentInfo != null)
+            {
+                txtUpName.Text = studentInfo.Name;
+                txtUpAge.Text = studentInfo.Age.ToString();
+                txtUpGrade.Text = studentInfo.Grade.ToString();
+                btnSaveUpdate.Enabled = true;
+            }
+        }
+
+        private async void btnSaveUpdate_Click(object sender, EventArgs e)
+        {
+            Student UpdatedStudent = new Student();
+
+            UpdatedStudent.ID = int.Parse(txtUpStudentID.Text);
+            UpdatedStudent.Name = txtUpName.Text;
+            UpdatedStudent.Age = int.Parse(txtUpAge.Text);
+            UpdatedStudent.Grade = int.Parse(txtUpGrade.Text);
+
+            try
+            {
+                var response = await HttpClient.PutAsJsonAsync($"{UpdatedStudent.ID}", UpdatedStudent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Student Updated Successfully");
+                    await LoadStudentsList();
+
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    MessageBox.Show("Failed to update student: Invalid data.");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    MessageBox.Show($"Student with ID {UpdatedStudent.ID} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+
+        }
+
+        private async void btnDeFind_Click(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(txtDeStudentID.Text))
+                return;
+
+            int studentID = int.Parse(txtDeStudentID.Text);
+
+            if (studentID < 1)
+            {
+                MessageBox.Show("Invalid Student ID");
+                return;
+            }
+
+
+            Student? studentInfo = await FindStudent(studentID);
+
+            if (studentInfo != null)
+            {
+                lblDeName.Text = studentInfo.Name;
+                lblAge.Text = studentInfo.Age.ToString();
+                lblDeGrade.Text = studentInfo.Grade.ToString();
+            }
+
+
+            if (MessageBox.Show("Are you suer want to delete this student ", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            try
+            {
+                var response = await HttpClient.DeleteAsync($"{studentID}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Student Deleted Successfully");
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    MessageBox.Show("Student Not Found");
+                }
+                else if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    MessageBox.Show("Invalid Student ID");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
 
 
         }

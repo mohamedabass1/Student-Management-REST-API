@@ -56,6 +56,31 @@
             btnFind = new Button();
             txtStudentID = new TextBox();
             label7 = new Label();
+            tbUodateStudent = new TabPage();
+            btnUpFind = new Button();
+            txtUpStudentID = new TextBox();
+            groupBox3 = new GroupBox();
+            btnSaveUpdate = new Button();
+            txtUpGrade = new TextBox();
+            label14 = new Label();
+            txtUpAge = new TextBox();
+            label15 = new Label();
+            txtUpName = new TextBox();
+            label16 = new Label();
+            label17 = new Label();
+            label10 = new Label();
+            tbDeleteStudent = new TabPage();
+            groupBox4 = new GroupBox();
+            lblDeGrade = new Label();
+            lblDeAge = new Label();
+            lblDeName = new Label();
+            label20 = new Label();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            btnDeFind = new Button();
+            txtDeStudentID = new TextBox();
+            label24 = new Label();
             Students.SuspendLayout();
             tpStudentList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStudentsList).BeginInit();
@@ -63,6 +88,10 @@
             groupBox1.SuspendLayout();
             tpFindStudent.SuspendLayout();
             groupBox2.SuspendLayout();
+            tbUodateStudent.SuspendLayout();
+            groupBox3.SuspendLayout();
+            tbDeleteStudent.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // Students
@@ -70,6 +99,8 @@
             Students.Controls.Add(tpStudentList);
             Students.Controls.Add(tbAddNewStudent);
             Students.Controls.Add(tpFindStudent);
+            Students.Controls.Add(tbUodateStudent);
+            Students.Controls.Add(tbDeleteStudent);
             Students.Dock = DockStyle.Fill;
             Students.Font = new Font("Segoe UI", 14F);
             Students.Location = new Point(0, 0);
@@ -89,7 +120,6 @@
             tpStudentList.TabIndex = 0;
             tpStudentList.Text = "Students List";
             tpStudentList.UseVisualStyleBackColor = true;
-            tpStudentList.Enter += tpStudentList_Enter;
             // 
             // label2
             // 
@@ -360,6 +390,266 @@
             label7.TabIndex = 8;
             label7.Text = "StudentID:";
             // 
+            // tbUodateStudent
+            // 
+            tbUodateStudent.Controls.Add(btnUpFind);
+            tbUodateStudent.Controls.Add(txtUpStudentID);
+            tbUodateStudent.Controls.Add(groupBox3);
+            tbUodateStudent.Controls.Add(label17);
+            tbUodateStudent.Controls.Add(label10);
+            tbUodateStudent.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            tbUodateStudent.Location = new Point(4, 34);
+            tbUodateStudent.Name = "tbUodateStudent";
+            tbUodateStudent.Size = new Size(902, 424);
+            tbUodateStudent.TabIndex = 3;
+            tbUodateStudent.Text = "Update Student";
+            tbUodateStudent.UseVisualStyleBackColor = true;
+            // 
+            // btnUpFind
+            // 
+            btnUpFind.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            btnUpFind.Location = new Point(567, 59);
+            btnUpFind.Name = "btnUpFind";
+            btnUpFind.Size = new Size(122, 40);
+            btnUpFind.TabIndex = 10;
+            btnUpFind.Text = "Find";
+            btnUpFind.UseVisualStyleBackColor = true;
+            btnUpFind.Click += btnUpFind_Click;
+            // 
+            // txtUpStudentID
+            // 
+            txtUpStudentID.Font = new Font("Segoe UI", 14F);
+            txtUpStudentID.Location = new Point(357, 67);
+            txtUpStudentID.Name = "txtUpStudentID";
+            txtUpStudentID.Size = new Size(190, 32);
+            txtUpStudentID.TabIndex = 9;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(btnSaveUpdate);
+            groupBox3.Controls.Add(txtUpGrade);
+            groupBox3.Controls.Add(label14);
+            groupBox3.Controls.Add(txtUpAge);
+            groupBox3.Controls.Add(label15);
+            groupBox3.Controls.Add(txtUpName);
+            groupBox3.Controls.Add(label16);
+            groupBox3.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            groupBox3.Location = new Point(67, 112);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(767, 275);
+            groupBox3.TabIndex = 3;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Student Information";
+            // 
+            // btnSaveUpdate
+            // 
+            btnSaveUpdate.Enabled = false;
+            btnSaveUpdate.Location = new Point(626, 218);
+            btnSaveUpdate.Name = "btnSaveUpdate";
+            btnSaveUpdate.Size = new Size(122, 40);
+            btnSaveUpdate.TabIndex = 8;
+            btnSaveUpdate.Text = "Save";
+            btnSaveUpdate.UseVisualStyleBackColor = true;
+            btnSaveUpdate.Click += btnSaveUpdate_Click;
+            // 
+            // txtUpGrade
+            // 
+            txtUpGrade.Font = new Font("Segoe UI", 14F);
+            txtUpGrade.Location = new Point(498, 133);
+            txtUpGrade.Name = "txtUpGrade";
+            txtUpGrade.Size = new Size(190, 32);
+            txtUpGrade.TabIndex = 5;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(556, 105);
+            label14.Name = "label14";
+            label14.Size = new Size(66, 25);
+            label14.TabIndex = 4;
+            label14.Text = "Grade";
+            // 
+            // txtUpAge
+            // 
+            txtUpAge.Font = new Font("Segoe UI", 14F);
+            txtUpAge.Location = new Point(260, 133);
+            txtUpAge.Name = "txtUpAge";
+            txtUpAge.Size = new Size(190, 32);
+            txtUpAge.TabIndex = 3;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(323, 105);
+            label15.Name = "label15";
+            label15.Size = new Size(47, 25);
+            label15.TabIndex = 2;
+            label15.Text = "Age";
+            // 
+            // txtUpName
+            // 
+            txtUpName.Font = new Font("Segoe UI", 14F);
+            txtUpName.Location = new Point(26, 133);
+            txtUpName.Name = "txtUpName";
+            txtUpName.Size = new Size(190, 32);
+            txtUpName.TabIndex = 1;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(83, 105);
+            label16.Name = "label16";
+            label16.Size = new Size(64, 25);
+            label16.TabIndex = 0;
+            label16.Text = "Name";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            label17.ForeColor = Color.Red;
+            label17.Location = new Point(328, 11);
+            label17.Name = "label17";
+            label17.Size = new Size(219, 37);
+            label17.TabIndex = 2;
+            label17.Text = "Update Student";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(239, 70);
+            label10.Name = "label10";
+            label10.Size = new Size(108, 25);
+            label10.TabIndex = 6;
+            label10.Text = "StudentID:";
+            // 
+            // tbDeleteStudent
+            // 
+            tbDeleteStudent.Controls.Add(groupBox4);
+            tbDeleteStudent.Controls.Add(label23);
+            tbDeleteStudent.Controls.Add(btnDeFind);
+            tbDeleteStudent.Controls.Add(txtDeStudentID);
+            tbDeleteStudent.Controls.Add(label24);
+            tbDeleteStudent.Location = new Point(4, 34);
+            tbDeleteStudent.Name = "tbDeleteStudent";
+            tbDeleteStudent.Size = new Size(902, 424);
+            tbDeleteStudent.TabIndex = 4;
+            tbDeleteStudent.Text = "Delete Student";
+            tbDeleteStudent.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(lblDeGrade);
+            groupBox4.Controls.Add(lblDeAge);
+            groupBox4.Controls.Add(lblDeName);
+            groupBox4.Controls.Add(label20);
+            groupBox4.Controls.Add(label21);
+            groupBox4.Controls.Add(label22);
+            groupBox4.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            groupBox4.Location = new Point(21, 172);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(767, 162);
+            groupBox4.TabIndex = 15;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Student Information";
+            // 
+            // lblDeGrade
+            // 
+            lblDeGrade.AutoSize = true;
+            lblDeGrade.Font = new Font("Segoe UI", 13F);
+            lblDeGrade.Location = new Point(622, 84);
+            lblDeGrade.Name = "lblDeGrade";
+            lblDeGrade.Size = new Size(54, 25);
+            lblDeGrade.TabIndex = 10;
+            lblDeGrade.Text = "[????]";
+            // 
+            // lblDeAge
+            // 
+            lblDeAge.AutoSize = true;
+            lblDeAge.Font = new Font("Segoe UI", 13F);
+            lblDeAge.Location = new Point(387, 84);
+            lblDeAge.Name = "lblDeAge";
+            lblDeAge.Size = new Size(54, 25);
+            lblDeAge.TabIndex = 9;
+            lblDeAge.Text = "[????]";
+            // 
+            // lblDeName
+            // 
+            lblDeName.AutoSize = true;
+            lblDeName.Font = new Font("Segoe UI", 13F);
+            lblDeName.Location = new Point(102, 84);
+            lblDeName.Name = "lblDeName";
+            lblDeName.Size = new Size(54, 25);
+            lblDeName.TabIndex = 7;
+            lblDeName.Text = "[????]";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(550, 84);
+            label20.Name = "label20";
+            label20.Size = new Size(66, 25);
+            label20.TabIndex = 4;
+            label20.Text = "Grade";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(317, 84);
+            label21.Name = "label21";
+            label21.Size = new Size(47, 25);
+            label21.TabIndex = 2;
+            label21.Text = "Age";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(27, 82);
+            label22.Name = "label22";
+            label22.Size = new Size(69, 25);
+            label22.TabIndex = 0;
+            label22.Text = "Name:";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            label23.ForeColor = Color.Red;
+            label23.Location = new Point(305, 36);
+            label23.Name = "label23";
+            label23.Size = new Size(208, 37);
+            label23.TabIndex = 14;
+            label23.Text = "Delete Student";
+            // 
+            // btnDeFind
+            // 
+            btnDeFind.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            btnDeFind.Location = new Point(561, 110);
+            btnDeFind.Name = "btnDeFind";
+            btnDeFind.Size = new Size(122, 40);
+            btnDeFind.TabIndex = 12;
+            btnDeFind.Text = "Find";
+            btnDeFind.UseVisualStyleBackColor = true;
+            btnDeFind.Click += btnDeFind_Click;
+            // 
+            // txtDeStudentID
+            // 
+            txtDeStudentID.Font = new Font("Segoe UI", 14F);
+            txtDeStudentID.Location = new Point(320, 115);
+            txtDeStudentID.Name = "txtDeStudentID";
+            txtDeStudentID.Size = new Size(190, 32);
+            txtDeStudentID.TabIndex = 11;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label24.Location = new Point(206, 122);
+            label24.Name = "label24";
+            label24.Size = new Size(108, 25);
+            label24.TabIndex = 13;
+            label24.Text = "StudentID:";
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
@@ -383,6 +673,14 @@
             tpFindStudent.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            tbUodateStudent.ResumeLayout(false);
+            tbUodateStudent.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            tbDeleteStudent.ResumeLayout(false);
+            tbDeleteStudent.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -418,5 +716,30 @@
         private Label label11;
         private Label label12;
         private Label label13;
+        private TabPage tbUodateStudent;
+        private TextBox txtUpStudentID;
+        private GroupBox groupBox3;
+        private Button btnSaveUpdate;
+        private TextBox txtUpGrade;
+        private Label label14;
+        private TextBox txtUpAge;
+        private Label label15;
+        private TextBox txtUpName;
+        private Label label16;
+        private Label label17;
+        private Label label10;
+        private Button btnUpFind;
+        private TabPage tbDeleteStudent;
+        private GroupBox groupBox4;
+        private Label lblDeGrade;
+        private Label lblDeAge;
+        private Label lblDeName;
+        private Label label20;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Button btnDeFind;
+        private TextBox txtDeStudentID;
+        private Label label24;
     }
 }
