@@ -143,7 +143,7 @@ Windows Forms desktop application connected to the REST API.
 
 ### Students Dashboard
 
-![Desktop Dashboard](screenshots/dashboard.png)
+![Desktop Dashboard](screenshots/desktop-dashboard.png)
 
 ---
 
@@ -153,7 +153,7 @@ Responsive web frontend built using HTML, CSS, and Vanilla JavaScript.
 
 ### Dashboard Page
 
-![Web Dashboard](screenshots/web-dashboard.png)
+![Web Dashboard](screenshots/desktop-dashboard.png)
 
 
 ### Search Student By ID
