@@ -258,12 +258,15 @@ namespace StudentDesktopClient1
 
             Student? studentInfo = await FindStudent(studentID);
 
-            if (studentInfo != null)
-            {
-                lblDeName.Text = studentInfo.Name;
-                lblAge.Text = studentInfo.Age.ToString();
-                lblDeGrade.Text = studentInfo.Grade.ToString();
-            }
+            if (studentInfo == null)
+                return;
+
+
+
+            lblDeName.Text = studentInfo.Name;
+            lblDeAge.Text = studentInfo.Age.ToString();
+            lblDeGrade.Text = studentInfo.Grade.ToString();
+
 
 
             if (MessageBox.Show("Are you suer want to delete this student ", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -276,6 +279,7 @@ namespace StudentDesktopClient1
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Student Deleted Successfully");
+                    await LoadStudentsList();
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
