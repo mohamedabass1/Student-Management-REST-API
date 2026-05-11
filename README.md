@@ -127,6 +127,39 @@ SQL Server Database
 
 ---
 
+# 📸 Screenshots
+
+## 🔹 Swagger API Documentation
+
+The ASP.NET Core API is fully documented using Swagger UI.
+
+![Swagger API](screenshots/swagger-api.png)
+
+---
+
+## 🔹 Desktop Client
+
+Windows Forms desktop application connected to the REST API.
+
+### Students Dashboard
+
+![Desktop Dashboard](screenshots/dashboard.png)
+
+---
+
+## 🔹 Web Client
+
+Responsive web frontend built using HTML, CSS, and Vanilla JavaScript.
+
+### Dashboard Page
+
+![Web Dashboard](screenshots/web-dashboard.png)
+
+
+### Search Student By ID
+
+![Web Search](screenshots/web-search.png)
+
 # 📡 REST API Endpoints
 
 ## Base URL
